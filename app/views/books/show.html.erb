@@ -1,0 +1,29 @@
+<h1>本の詳細</h1>
+
+<p>
+  <strong>タイトル：</strong>
+  <%= @book.title %>
+</p>
+
+<p>
+  <strong>著者：</strong>
+  <%= @book.author %>
+</p>
+
+<p>
+  <strong>ジャンル：</strong>
+  <%= @book.genre %>
+</p>
+
+<p>
+  <strong>説明：</strong>
+  <%= @book.description %>
+</p>
+
+<p>
+  <%= link_to "編集", edit_book_path(@book) %>
+</p>
+
+<p>
+  <%= link_to "一覧に戻る", books_path %>
+</p>

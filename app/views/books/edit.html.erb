@@ -1,0 +1,43 @@
+<h1>本の編集</h1>
+
+<%= form_with model: @book do |form| %>
+
+  <% if @book.errors.any? %>
+    <h2>入力エラーがあります</h2>
+
+    <ul>
+      <% @book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <p>
+    <%= form.label :title, "タイトル" %><br>
+    <%= form.text_field :title %>
+  </p>
+
+  <p>
+    <%= form.label :author, "著者" %><br>
+    <%= form.text_field :author %>
+  </p>
+
+  <p>
+    <%= form.label :genre, "ジャンル" %><br>
+    <%= form.text_field :genre %>
+  </p>
+
+  <p>
+    <%= form.label :description, "説明" %><br>
+    <%= form.text_area :description %>
+  </p>
+
+  <p>
+    <%= form.submit "更新" %>
+  </p>
+
+<% end %>
+
+<p>
+  <%= link_to "一覧に戻る", books_path %>
+</p>
