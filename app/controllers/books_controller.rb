@@ -15,8 +15,9 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
 
     if @book.save
-      redirect_to @book
+      redirect_to @book, notice: "本を登録しました。"
     else
+      flash.now[:alert] = "本の登録に失敗しました。"
       render :new, status: :unprocessable_entity
     end
   end
@@ -29,8 +30,9 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
 
     if @book.update(book_params)
-      redirect_to @book
+      redirect_to @book, notice: "本を更新しました。"
     else
+      flash.now[:alert] = "本の更新に失敗しました。"
       render :edit, status: :unprocessable_entity
     end
   end
@@ -39,7 +41,7 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @book.destroy
 
-    redirect_to books_path
+    redirect_to books_path, notice: "本を削除しました。"
   end
 
   private
