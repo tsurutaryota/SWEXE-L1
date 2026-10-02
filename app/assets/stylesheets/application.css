@@ -10,3 +10,74 @@
  */
 
  @import "books";
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #333;
+}
+
+.site-header {
+  background: #333;
+  color: white;
+  padding: 20px;
+}
+
+.site-header h1 {
+  margin: 0;
+}
+
+.layout {
+  display: flex;
+  min-height: 500px;
+}
+
+.sidebar {
+  width: 220px;
+  background: #444;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  margin-top: 0;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin-bottom: 15px;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+}
+
+.sidebar a:hover {
+  text-decoration: underline;
+}
+
+.main-content {
+  flex: 1;
+  background: white;
+  padding: 30px;
+}
+
+.site-footer {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 15px;
+}
+
+.site-footer p {
+  margin: 0;
+}

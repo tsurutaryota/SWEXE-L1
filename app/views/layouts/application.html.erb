@@ -11,19 +11,37 @@
 
     <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= yield %>
+    <header class="site-header">
+      <h1>本管理アプリ</h1>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <h2>メニュー</h2>
+        <nav>
+          <ul>
+            <li><%= link_to "本一覧", books_path %></li>
+            <li><%= link_to "本を登録", new_book_path %></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <%= yield %>
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      <p>&copy; 2026 本管理アプリ</p>
+    </footer>
   </body>
 </html>
