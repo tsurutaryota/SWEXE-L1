@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
-  root "books#index"
-  resources :books
+  get 'top/main'
+  post 'top/login'
+  root 'top#main'
 end
