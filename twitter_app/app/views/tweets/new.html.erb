@@ -1,0 +1,20 @@
+<h1>新規投稿</h1>
+
+<% if @tweet.errors.any? %>
+  <ul>
+    <% @tweet.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: @tweet do |form| %>
+  <p>
+    <%= form.label :content, "投稿内容" %><br>
+    <%= form.text_area :content, rows: 5, required: true %>
+  </p>
+
+  <%= form.submit "投稿" %>
+<% end %>
+
+<p><%= link_to "投稿一覧に戻る", root_path %></p>

@@ -1,0 +1,26 @@
+<h1>ログイン</h1>
+
+<% if notice %>
+  <p><%= notice %></p>
+<% end %>
+
+<% if flash[:alert] %>
+  <p><%= flash[:alert] %></p>
+<% end %>
+
+<%= form_with url: login_path, method: :post do |form| %>
+  <p>
+    <%= form.label :uid, "UID" %><br>
+    <%= form.text_field :uid, required: true %>
+  </p>
+
+  <p>
+    <%= form.label :pass, "パスワード" %><br>
+    <%= form.password_field :pass, required: true %>
+  </p>
+
+  <%= form.submit "ログイン" %>
+<% end %>
+
+<p><%= link_to "ユーザー登録", new_user_path %></p>
+<p><%= link_to "投稿一覧に戻る", root_path %></p>

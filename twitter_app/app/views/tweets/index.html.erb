@@ -1,0 +1,56 @@
+<% current_user = User.find_by(id: session[:user_id]) if session[:user_id] %>
+
+<% if current_user %>
+  <p>ログイン中：<%= current_user.uid %></p>
+  <p><%= link_to "マイプロフィール", profile_path %></p>
+  <%= button_to "ログアウト", logout_path, method: :delete %>
+  <p><%= link_to "新規投稿", new_tweet_path %></p>
+<% else %>
+  <p><%= link_to "ログイン", login_path %></p>
+<% end %>
+
+<h1>投稿一覧</h1>
+
+<p><%= link_to "ユーザー一覧", users_path %></p>
+
+<% if notice %>
+  <p><%= notice %></p>
+<% end %>
+
+<% if flash[:alert] %>
+  <p><%= flash[:alert] %></p>
+<% end %>
+
+<% if @tweets.empty? %>
+  <p>まだ投稿はありません。</p>
+<% else %>
+  <% @tweets.each do |tweet| %>
+    <div style="border: 1px solid #ccc; padding: 12px; margin-bottom: 12px;">
+      <p><strong><%= tweet.user.uid %></strong></p>
+      <p><%= simple_format(tweet.content) %></p>
+      <small><%= tweet.created_at.strftime("%Y-%m-%d %H:%M") %></small>
+
+      <p>いいね：<%= tweet.likes.count %>件</p>
+
+      <% if current_user %>
+        <% like = tweet.likes.find_by(user_id: current_user.id) %>
+
+        <% if like %>
+          <%= button_to "いいね解除", tweet_like_path(tweet, like),
+              method: :delete %>
+        <% else %>
+          <%= button_to "いいね", tweet_likes_path(tweet),
+              method: :post %>
+        <% end %>
+      <% end %>
+
+      <% if current_user && tweet.user_id == current_user.id %>
+        <p>
+          <%= button_to "削除", tweet_path(tweet),
+              method: :delete,
+              data: { turbo_confirm: "この投稿を削除しますか？" } %>
+        </p>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,29 @@
+<h1>プロフィール編集</h1>
+
+<% if @user.errors.any? %>
+  <div>
+    <p>入力内容を確認してください。</p>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @user, url: profile_path, method: :patch do |form| %>
+  <p>
+    <%= form.label :name, "表示名" %><br>
+    <%= form.text_field :name %>
+  </p>
+
+  <p>
+    <%= form.label :bio, "自己紹介" %><br>
+    <%= form.text_area :bio, rows: 5 %>
+  </p>
+
+  <%= form.submit "プロフィールを保存" %>
+<% end %>
+
+<p><%= link_to "プロフィールに戻る", profile_path %></p>
+<p><%= link_to "投稿一覧に戻る", root_path %></p>

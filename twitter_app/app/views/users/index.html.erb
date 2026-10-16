@@ -1,0 +1,40 @@
+<% current_user = User.find_by(id: session[:user_id]) if session[:user_id] %>
+
+<p><%= link_to "投稿一覧に戻る", root_path %></p>
+<h1>ユーザー一覧</h1>
+
+<p><%= link_to "新規ユーザー登録", new_user_path %></p>
+
+<% if notice %>
+  <p><%= notice %></p>
+<% end %>
+
+<% if flash[:alert] %>
+  <p><%= flash[:alert] %></p>
+<% end %>
+
+<table border="1" cellpadding="8">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>ユーザーID</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.uid %></td>
+        <td>
+          <% if current_user %>
+            <%= button_to "削除", user_path(user), method: :delete,
+                data: { turbo_confirm: "削除しますか？" } %>
+          <% else %>
+            ログインしてください
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
