@@ -1,0 +1,38 @@
+<h1>ショッピングカート</h1>
+
+<% if notice %>
+  <p><%= notice %></p>
+<% end %>
+
+<% if @cart_items.empty? %>
+  <p>カートに商品はありません。</p>
+<% else %>
+  <table border="1" cellpadding="8">
+    <thead>
+      <tr>
+        <th>商品名</th>
+        <th>価格</th>
+        <th>数量</th>
+        <th>小計</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cart_items.each do |item| %>
+        <tr>
+          <td><%= item.product.name %></td>
+          <td><%= number_to_currency(item.product.price, unit: "円", precision: 0, format: "%n%u") %></td>
+          <td><%= item.qty %></td>
+          <td><%= number_to_currency(item.product.price * item.qty, unit: "円", precision: 0, format: "%n%u") %></td>
+          <td>
+            <%= button_to "削除", cart_item_path(item), method: :delete %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <h2>合計金額：<%= number_to_currency(@total_price, unit: "円", precision: 0, format: "%n%u") %></h2>
+<% end %>
+
+<p><%= link_to "商品一覧に戻る", products_path %></p>
