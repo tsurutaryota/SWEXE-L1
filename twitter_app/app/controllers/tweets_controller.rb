@@ -11,7 +11,7 @@ class TweetsController < ApplicationController
 
   def create
     @tweet = Tweet.new(tweet_params)
-    @tweet.user = User.find(session[:user_id])
+    @tweet.user = current_user
 
     if @tweet.save
       redirect_to root_path, notice: "投稿しました。"
@@ -23,7 +23,7 @@ class TweetsController < ApplicationController
   def destroy
     @tweet = Tweet.find(params[:id])
 
-    if @tweet.user_id == session[:user_id]
+    if @tweet.user_id == current_user.id
       @tweet.destroy
       redirect_to root_path, notice: "投稿を削除しました。"
     else
@@ -32,12 +32,6 @@ class TweetsController < ApplicationController
   end
 
   private
-
-  def require_login
-    unless session[:user_id] && User.exists?(id: session[:user_id])
-      redirect_to login_path, alert: "ログインしてください。"
-    end
-  end
 
   def tweet_params
     params.require(:tweet).permit(:content)

@@ -19,6 +19,11 @@
     <%= form.password_field :pass, required: true %>
   </p>
 
+  <p>
+    <%= label_tag "password_confirmation", "パスワード（確認）" %><br>
+    <%= password_field_tag "user[password_confirmation]", nil, required: true %>
+  </p>
+
   <%= form.submit "登録" %>
 <% end %>
 

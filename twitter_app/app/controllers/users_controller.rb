@@ -11,6 +11,13 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    password_confirmation = params.dig(:user, :password_confirmation)
+
+    if @user.pass != password_confirmation
+      @user.errors.add(:pass, "と確認用パスワードが一致しません")
+      render :new, status: :unprocessable_entity
+      return
+    end
 
     if @user.valid?
       @user.pass = BCrypt::Password.create(@user.pass)
